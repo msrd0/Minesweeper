@@ -23,6 +23,7 @@ logic {
 	FILES += org/pixelgaffer/turnierserver/minesweeper/logic/MinesweeperLogic.java
 	FILES += org/pixelgaffer/turnierserver/minesweeper/logic/MinesweeperObject.java
 	FILES += org/pixelgaffer/turnierserver/minesweeper/logic/MinesweeperRenderData.java
+	LOGICCLASS = org.pixelgaffer.turnierserver.minesweeper.logic.MinesweeperLogic
 }
 
 java {
@@ -36,7 +37,7 @@ java {
 	LIBS += lib/java/networking.jar
 	
 	SOURCES = src/main/java
-	#FILES  = org/pixelgaffer/turnierserver/minesweeper/Cell.java
+	FILES  = org/pixelgaffer/turnierserver/minesweeper/Cell.java
 	FILES += org/pixelgaffer/turnierserver/minesweeper/Grid.java
 	FILES += org/pixelgaffer/turnierserver/minesweeper/MinesweeperBuilderResponse.java
 	FILES += org/pixelgaffer/turnierserver/minesweeper/MinesweeperSolverResponse.java
