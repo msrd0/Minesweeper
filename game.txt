@@ -6,6 +6,8 @@ GAMEID = 1
 JAVAVERSION = 1.8
 ENCODING = utf8
 
+DEBUG = true
+
 logic {
 	LIBS += lib/java/ftp4j.jar
 	LIBS += lib/java/gamelogic.jar
