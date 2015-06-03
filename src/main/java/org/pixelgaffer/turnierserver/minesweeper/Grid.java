@@ -31,6 +31,9 @@ public class Grid extends BuilderSolverGameState<Map<String, Cell>, MinesweeperB
 
 	@Override
 	public void applyChanges(BuilderSolverChange<Map<String, Cell>> changes) {
+		if(changes.building) {
+			return;
+		}
 		for(int i = 0; i < Cell.FIELD_SIZE; i++) {
 			for(int j = 0; j < Cell.FIELD_SIZE; j++) {
 				if(changes.change.containsKey(i + ":" + j)) {

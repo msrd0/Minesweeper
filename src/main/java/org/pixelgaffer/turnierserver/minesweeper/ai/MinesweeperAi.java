@@ -28,10 +28,12 @@ public abstract class MinesweeperAi extends Ai<Grid, BuilderSolverChange<Map<Str
 		BuilderSolverResponse<MinesweeperBuilderResponse, MinesweeperSolverResponse> response = new BuilderSolverResponse<>();
 		
 		if(state.isBuilding()) {
+			response.build = new MinesweeperBuilderResponse();
 			response.build.field = generateField();
 			response.build.output = output.toString();
 		}
 		else {
+			response.solve = new MinesweeperSolverResponse();
 			step(state.getField());
 			response.solve.output = output.toString();
 			response.solve.xFlag = xFlag;
@@ -46,7 +48,7 @@ public abstract class MinesweeperAi extends Ai<Grid, BuilderSolverChange<Map<Str
 	@Override
 	protected Grid getState(BuilderSolverChange<Map<String, Cell>> change) {
 		grid.applyChanges(change);
-		grid.setBuilding(true);
+		grid.setBuilding(change.building);
 		return grid;
 	}
 	
