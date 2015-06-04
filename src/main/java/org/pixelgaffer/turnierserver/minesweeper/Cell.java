@@ -1,27 +1,18 @@
 package org.pixelgaffer.turnierserver.minesweeper;
 
-import java.io.IOException;
-
 import lombok.Getter;
 import lombok.Setter;
-
-import org.pixelgaffer.turnierserver.Parsers;
-
-import com.google.gson.TypeAdapter;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 public class Cell {
 	
 	/**
 	 * Die Größe des Feldes
 	 */
-	public static final int FIELD_SIZE = 16;
+	public static final int FIELD_SIZE = 3;
 	/**
 	 * Die Anzahl an Bomben pro Feld
 	 */
-	public static final int BOMB_COUNT = 64;
+	public static final int BOMB_COUNT = 4;
 	
 	public enum Type {
 		BOMB, EMPTY, COVERED;
@@ -129,6 +120,10 @@ public class Cell {
 			cell.uncovered = false;
 			return new Cell(type);
 		}
+	}
+	
+	public String toString() {
+		return type.toString();
 	}
 	
 }
