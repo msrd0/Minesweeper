@@ -14,56 +14,6 @@ import com.google.gson.stream.JsonWriter;
 
 public class Cell {
 	
-	public static class CellAdapter extends TypeAdapter<Cell> {
-		@Override
-		public void write(JsonWriter out, Cell value) throws IOException {
-			out.beginArray();
-			if(!value.uncovered) {
-				out.value(0);
-				out.value(value.flagged ? 1 : 0);
-			}
-			else if(value.type == Type.BOMB) {
-				out.value(1);
-			}
-			else {
-				out.value(2);
-				out.value(value.bombsArround);
-			}
-			out.endArray();
-		}
-
-		@Override
-		public Cell read(JsonReader in) throws IOException {
-			in.beginArray();
-			int type = in.nextInt();
-			Cell cell = new Cell(type == 0 ? Type.COVERED : type == 1 ? Type.BOMB : Type.EMPTY);
-			if(cell.type == Type.COVERED) {
-				cell.uncovered = false;
-				cell.bombsArround = -1;
-				cell.flagged = in.nextInt() == 1;
-				return cell;
-			}
-			if(cell.type == Type.BOMB) {
-				cell.uncovered = true;
-				cell.bombsArround = -1;
-				cell.flagged = false;
-				return cell;
-			}
-			if(cell.type == Type.EMPTY) {
-				cell.uncovered = true;
-				cell.bombsArround = in.nextInt();
-				cell.flagged = false;
-				return cell;
-			}
-			return cell;
-		}
-		
-	}
-	
-	static {
-		Parsers.addTypeAdapter(new TypeToken<Cell>() {}, new CellAdapter());
-	}
-	
 	/**
 	 * Die Größe des Feldes
 	 */
@@ -123,6 +73,62 @@ public class Cell {
 	 */
 	public static boolean isInField(int x, int y) {
 		return x >= 0 && x < FIELD_SIZE && y >= 0 && y < FIELD_SIZE;
+	}
+	
+	public static CellForAi[][] getArrayForAi(Cell[][] cells) {
+		CellForAi[][] forAi = new CellForAi[Cell.FIELD_SIZE][Cell.FIELD_SIZE];
+		for(int i = 0; i < Cell.FIELD_SIZE; i++) {
+			for(int j = 0; j < Cell.FIELD_SIZE; j++) {
+				forAi[i][j] = new CellForAi(cells[i][j]);
+			}
+		}
+		return forAi;
+	}
+	
+	public static Cell[][] getArrayFromAi(CellFromAi[][] cells) {
+		Cell[][] fromAi = new Cell[Cell.FIELD_SIZE][Cell.FIELD_SIZE];
+		for(int i = 0; i < Cell.FIELD_SIZE; i++) {
+			for(int j = 0; j < Cell.FIELD_SIZE; j++) {
+				fromAi[i][j] = cells[i][j].toCell();
+			}
+		}
+		return fromAi;
+	}
+	
+	public static class CellForAi {
+		public CellForAi() {}
+		public CellForAi(Cell cell) {
+			if(!cell.uncovered) {
+				type = Type.COVERED;
+				flagged = cell.flagged;
+			}
+			else if(cell.type == Type.BOMB) {
+				type = Type.BOMB;
+			}
+			else if(cell.type == Type.EMPTY) {
+				type = Type.EMPTY;
+				bombsAround = cell.bombsArround;
+			}
+		}
+		public boolean flagged;
+		public Type type;
+		public int bombsAround = -1;
+		Cell toCell() {
+			return new Cell(type);
+		}
+	}
+	
+	public static class CellFromAi {
+		public CellFromAi() {}
+		public CellFromAi(Type type) {
+			this.type = type;
+		}
+		public Type type;
+		Cell toCell() {
+			Cell cell = new Cell(type);
+			cell.uncovered = false;
+			return new Cell(type);
+		}
 	}
 	
 }

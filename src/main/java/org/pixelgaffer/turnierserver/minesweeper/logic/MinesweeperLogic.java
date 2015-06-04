@@ -1,6 +1,7 @@
 package org.pixelgaffer.turnierserver.minesweeper.logic;
 
 import org.pixelgaffer.turnierserver.gamelogic.AllBuilderAllSolverLogic;
+import org.pixelgaffer.turnierserver.gamelogic.GameLogic;
 import org.pixelgaffer.turnierserver.gamelogic.interfaces.Ai;
 import org.pixelgaffer.turnierserver.gamelogic.messages.BuilderSolverResponse;
 import org.pixelgaffer.turnierserver.minesweeper.Cell;
@@ -35,7 +36,8 @@ public class MinesweeperLogic extends AllBuilderAllSolverLogic<MinesweeperObject
 
 	@Override
 	protected void gameFinished() {
-		
+		GameLogic.logger.finest("Das Spiel wurde beendet.");
+		endGame();
 	}
 
 	@Override
@@ -54,7 +56,7 @@ public class MinesweeperLogic extends AllBuilderAllSolverLogic<MinesweeperObject
 	public Grid createGameState(Ai ai) {
 		Grid grid = new Grid();
 		grid.setAi(ai);
-		return null;
+		return grid;
 	}
 
 }

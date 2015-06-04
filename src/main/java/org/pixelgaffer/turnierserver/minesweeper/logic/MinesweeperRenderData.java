@@ -1,10 +1,10 @@
 package org.pixelgaffer.turnierserver.minesweeper.logic;
 
-import org.pixelgaffer.turnierserver.minesweeper.Cell;
+import org.pixelgaffer.turnierserver.minesweeper.Cell.CellForAi;
 
 public class MinesweeperRenderData {
 	
-	public Cell[][] field;
+	public CellForAi[][] field;
 	public String output;
 	public int calculationTime;
 	public int aiID;

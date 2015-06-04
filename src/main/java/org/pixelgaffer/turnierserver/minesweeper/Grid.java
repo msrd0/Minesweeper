@@ -2,16 +2,20 @@ package org.pixelgaffer.turnierserver.minesweeper;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import org.pixelgaffer.turnierserver.gamelogic.interfaces.BuilderSolverGameState;
 import org.pixelgaffer.turnierserver.gamelogic.messages.BuilderSolverChange;
+import org.pixelgaffer.turnierserver.minesweeper.Cell.CellForAi;
 import org.pixelgaffer.turnierserver.minesweeper.Cell.Type;
 import org.pixelgaffer.turnierserver.minesweeper.logic.MinesweeperRenderData;
 
-public class Grid extends BuilderSolverGameState<Map<String, Cell>, MinesweeperBuilderResponse, MinesweeperSolverResponse> {
+public class Grid extends BuilderSolverGameState<Map<String, CellForAi>, MinesweeperBuilderResponse, MinesweeperSolverResponse> {
+	
+	public static Logger logger = Logger.getLogger("GameLogic");
 	
 	private Cell[][] field;
 	private boolean won;
@@ -30,24 +34,29 @@ public class Grid extends BuilderSolverGameState<Map<String, Cell>, MinesweeperB
 	}
 
 	@Override
-	public void applyChanges(BuilderSolverChange<Map<String, Cell>> changes) {
+	public void applyChanges(BuilderSolverChange<Map<String, CellForAi>> changes) {
 		if(changes.building) {
 			return;
 		}
 		for(int i = 0; i < Cell.FIELD_SIZE; i++) {
 			for(int j = 0; j < Cell.FIELD_SIZE; j++) {
 				if(changes.change.containsKey(i + ":" + j)) {
-					field[i][j] = changes.change.get(i + ":" + j);
+					System.out.println(field);
+					System.out.println(changes.change.get(i + ":" + j));
+					System.out.println(changes.change.containsKey(i + ":" + j));
+					field[i][j] = changes.change.get(i + ":" + j).toCell();
 				}
 			}
 		}
 	}
 
 	@Override
-	public Response<Map<String, Cell>> build(MinesweeperBuilderResponse response) {
-		field = response.field;
-		Response<Map<String, Cell>> result = new Response<>();
+	public Response<Map<String, CellForAi>> build(MinesweeperBuilderResponse response) {
+		field = Cell.getArrayFromAi(response.field);
+		Response<Map<String, CellForAi>> result = new Response<>();
 		result.finished = true;
+		System.out.println("Anzahl an Bomben: " + getBombs());
+		System.out.println("Hat Feld leere Zellen: " + hasEmpty());
 		result.valid = !hasEmpty() && getBombs() == Cell.BOMB_COUNT;
 		if(result.valid) {
 			countSurroundingBombs();
@@ -55,35 +64,35 @@ public class Grid extends BuilderSolverGameState<Map<String, Cell>, MinesweeperB
 		MinesweeperRenderData data = new MinesweeperRenderData();
 		data.aiID = getAi().getId();
 		data.calculationTime = getAi().getObject().millisLeft;
-		data.field = response.field;
+		data.field = Cell.getArrayForAi(field);
 		data.output = response.output;
 		result.renderData = data;
 		return result;
 	}
 
 	@Override
-	public Response<Map<String, Cell>> solve(MinesweeperSolverResponse response) {
-		
-		Response<Map<String, Cell>> result = new Response<>();
+	public Response<Map<String, CellForAi>> solve(MinesweeperSolverResponse response) {
+		logger.entering(getClass().toString(), "solve");
+		Response<Map<String, CellForAi>> result = new Response<>();
 		result.changes = new HashMap<>();
 		result.valid = true;
 		
 		MinesweeperRenderData data = new MinesweeperRenderData();
 		data.aiID = getAi().getId();
 		data.calculationTime = getAi().getObject().millisLeft;
-		data.field = field;
+		data.field = Cell.getArrayForAi(field);
 		data.output = response.output;
 		result.renderData = data;
 		
 		Cell cell = get(response.xFlag, response.yFlag);
 		if(cell != null) {
 			cell.setFlagged(!cell.isFlagged());
-			result.changes.put(response.xFlag + ":"  + response.yFlag, cell);
+			result.changes.put(response.xFlag + ":"  + response.yFlag, new CellForAi(cell));
 		}
 		
 		cell = get(response.xStep, response.yStep);
 		if(cell != null) {
-			Map<String, Cell> uncover = uncover(response.xStep, response.yStep);
+			Map<String, CellForAi> uncover = uncover(response.xStep, response.yStep);
 			
 			moves++;
 			
@@ -105,21 +114,21 @@ public class Grid extends BuilderSolverGameState<Map<String, Cell>, MinesweeperB
 	}
 
 	@Override
-	public Map<String, Cell> getState() {
-		Map<String, Cell> response = new HashMap<>();
+	public Map<String, CellForAi> getState() {
+		Map<String, CellForAi> response = new HashMap<>();
 		for(int i = 0; i < Cell.FIELD_SIZE; i++) {
 			for(int j = 0; j < Cell.FIELD_SIZE; j++) {
-				response.put(i + ":" + j, get(i, j));
+				response.put(i + ":" + j, new CellForAi(get(i, j)));
 			}
 		}
 		return response;
 	}
 	
-	private Map<String, Cell> uncover(int x, int y) {
+	private Map<String, CellForAi> uncover(int x, int y) {
 		return uncover(x, y, new HashMap<>());
 	}
 	
-	private Map<String, Cell> uncover(int x, int y, Map<String, Cell> map) {
+	private Map<String, CellForAi> uncover(int x, int y, Map<String, CellForAi> map) {
 		Cell cell = field[x][y];
 		if(cell.getType() == Type.BOMB) {
 			return null;
@@ -128,7 +137,7 @@ public class Grid extends BuilderSolverGameState<Map<String, Cell>, MinesweeperB
 			return map;
 		}
 		cell.uncover();
-		map.put(x + ":" + y, cell);
+		map.put(x + ":" + y, new CellForAi(cell));
 		if(cell.getBombsArround() != 0) {
 			uncover(x + 1, y, map);
 			uncover(x + 1, y + 1, map);
