@@ -7,4 +7,9 @@ public class MinesweeperSolverResponse  {
 	public int xStep = -1, yStep = -1;
 	public String output;
 	
+	@Override
+	public String toString() {
+		return "Setze Flagge: " + xStep + ":" + yStep + ", setze Fahne: " + xFlag + ":" + yFlag;
+	}
+	
 }

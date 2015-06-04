@@ -40,7 +40,9 @@ public class MinesweeperLogic extends AllBuilderAllSolverLogic<MinesweeperObject
 
 	@Override
 	protected void setup() {
-		
+		for(Ai ai : game.getAis()) {
+			getUserObject(ai).millisLeft = 10000;
+		}
 	}
 
 	@Override

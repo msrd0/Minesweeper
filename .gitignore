@@ -13,3 +13,8 @@ hs_err_pid*
 
 # dolphins .directory
 .directory
+.classpath
+.metadata
+.project
+bin/
+buildgame
