@@ -7,6 +7,6 @@ public class MinesweeperRenderData {
 	public CellForAi[][] field;
 	public String output;
 	public int calculationTime;
-	public int aiID;
+	public String aiID;
 	
 }
