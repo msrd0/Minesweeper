@@ -37,7 +37,6 @@ public class MinesweeperLogic extends AllBuilderAllSolverLogic<MinesweeperObject
 	@Override
 	protected void gameFinished() {
 		GameLogic.logger.finest("Das Spiel wurde beendet.");
-		endGame();
 	}
 
 	@Override
