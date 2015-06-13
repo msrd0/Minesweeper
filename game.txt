@@ -45,3 +45,8 @@ java {
 	FILES += org/pixelgaffer/turnierserver/minesweeper/MinesweeperSolverResponse.java
 	FILES += org/pixelgaffer/turnierserver/minesweeper/ai/MinesweeperAi.java
 }
+
+python {
+	SOURCES = src/main/python
+	FILES = game_wrapper.py
+}
