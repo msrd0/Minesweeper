@@ -1,8 +1,8 @@
 from wrapper import AIWrapper
 from collections import namedtuple
 
-FIELD_SIZE = 3
-START_BOMBS = 4
+FIELD_SIZE = 9
+START_BOMBS = 10
 
 class CellType:
 	BOMB = "BOMB"
