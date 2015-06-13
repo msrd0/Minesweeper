@@ -94,4 +94,7 @@ class GameWrapper(AIWrapper):
 
 		return state
 
+	def del_output(self, d):
+		del d[list(d.keys())[0]]["output"]
+
 
