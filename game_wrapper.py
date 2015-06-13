@@ -1,17 +1,24 @@
-from enum import Enum
 from wrapper import AIWrapper
+from collections import namedtuple
 
 FIELD_SIZE = 3
-MINES = 3
+START_BOMBS = 4
 
-class CellType(Enum):
-	BOMB, EMPTY, COVERED = 0, 1, 2
+class CellType:
+	BOMB = "BOMB"
+	EMPTY = "EMPTY"
+	COVERED = "COVERED"
+
+Cell = namedtuple("Cell", ["type", "flagged", "bombsAround"])
 
 class State:
-	def __init__(self):
+	def __init__(self, grid=None):
 		self._flag = (-1, -1)
 		self._step = (-1, -1)
-		self.grid = None
+		if grid:
+			self.grid = grid
+		else:
+			self.grid = [[Cell(type=CellType.COVERED, flagged=False, bombsAround=-1) for _ in range(FIELD_SIZE)] for _ in range(FIELD_SIZE)]
 		self.isBuilding = False
 
 	def check_is_field(self, x, y):
@@ -48,28 +55,43 @@ class State:
 
 
 class GameWrapper(AIWrapper):
+	state = None
+
 	def update(self, state: State):
 		if state.isBuilding:
 			field = self.ai.generateField()
 			response = {
 				"build": {
 					"output": self.output.read(),
-					"field": [[{"type": "BOMB"} if f else {"type": "EMPTY"} for f in row] for row in field]
+					"field": [[{"type": CellType.BOMB} if f else {"type": CellType.EMPTY} for f in row] for row in field]
 				}
 			}
 		else:
 			self.ai.step(state)
 			response = {
-				"output": self.output.read(),
-				"xStep": state._step[0], "yStep": state._step[1],
-				"xFlag": state._flag, "yFlag": state._flag[1]
+				"solve": {
+					"output": self.output.read(),
+					"xStep": state._step[0], "yStep": state._step[1],
+					"xFlag": state._flag[0], "yFlag": state._flag[1]
+				}
 			}
 		return response
 
 	def getState(self, d):
-		s = State()
+		state = State()
 		if "building" in d:
-			s.isBuilding = d["building"]
-		return s
+			state.isBuilding = d["building"]
+
+		if not state.isBuilding:
+			if self.state:
+				state.grid = self.state.grid
+			for pos, change in d["change"].items():
+				x, y = pos.split(":")
+				x, y = int(x), int(y)
+				state.grid[x][y] = Cell(type=change["type"], flagged=change["flagged"], bombsAround=change["bombsAround"])
+
+		self.state = state
+
+		return state
 
 
