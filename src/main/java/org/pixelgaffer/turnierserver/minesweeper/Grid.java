@@ -129,9 +129,9 @@ public class Grid extends BuilderSolverGameState<Map<String, CellForAi>, Mineswe
 	}
 	
 	private Map<String, CellForAi> uncover(int x, int y, Map<String, CellForAi> map) {
-        if(!Cell.isInField(x, y)) {
-            return null;
-        }
+        	if(!Cell.isInField(x, y)) {
+            		return null;
+        	}
 		Cell cell = field[x][y];
 		if(cell.getType() == Type.BOMB) {
 			return null;
@@ -141,16 +141,12 @@ public class Grid extends BuilderSolverGameState<Map<String, CellForAi>, Mineswe
 		}
 		cell.uncover();
 		map.put(x + ":" + y, new CellForAi(cell));
-		if(cell.getBombsArround() > 0) {
-			uncover(x + 1, y, map);
-			uncover(x + 1, y + 1, map);
-			uncover(x + 1, y - 1, map);
-			uncover(x, y + 1, map);
-			uncover(x, y - 1, map);
-			uncover(x - 1, y, map);
-			uncover(x - 1, y + 1, map);
-			uncover(x - 1, y - 1, map);
-		}
+		
+		uncover(x + 1, y, map);
+		uncover(x, y + 1, map);
+		uncover(x, y - 1, map);
+		uncover(x - 1, y, map);
+		
 		return map;
 	}
 	
