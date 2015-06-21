@@ -119,14 +119,28 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
   }
   
   public int getPoints(final Boolean ownReaction, final Boolean enemyReaction) {
-    if ((enemyReaction).booleanValue()) {
-      return 0;
-    }
-    if ((ownReaction).booleanValue()) {
-      return 7;
+    boolean _and = false;
+    if (!(enemyReaction).booleanValue()) {
+      _and = false;
     } else {
-      return 1;
+      _and = (ownReaction).booleanValue();
     }
+    if (_and) {
+      return 2;
+    }
+    if (((!(ownReaction).booleanValue()) && (!(enemyReaction).booleanValue()))) {
+      return 4;
+    }
+    boolean _and_1 = false;
+    if (!(ownReaction).booleanValue()) {
+      _and_1 = false;
+    } else {
+      _and_1 = (!(enemyReaction).booleanValue());
+    }
+    if (_and_1) {
+      return 5;
+    }
+    return 0;
   }
   
   @Pure
