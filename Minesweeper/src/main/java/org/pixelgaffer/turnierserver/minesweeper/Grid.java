@@ -107,7 +107,7 @@ public class Grid extends BuilderSolverGameState<Map<String, CellForAi>, Mineswe
 			if(won()) {
 				result.finished = true;
 				result.changes = null;
-				result.renderData.solved = true;
+				((MinesweeperRenderData) result.renderData).solved = true;
 			}
 			
 		}
