@@ -99,27 +99,23 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
     return this.points.get(player);
   }
   
-  public Integer updatePoints() {
-    Integer _xblockexpression = null;
-    {
-      Integer _get = this.points.get(0);
-      List<Boolean> _get_1 = this.responses.get(0);
-      Boolean _last = IterableExtensions.<Boolean>last(_get_1);
-      List<Boolean> _get_2 = this.responses.get(1);
-      Boolean _last_1 = IterableExtensions.<Boolean>last(_get_2);
-      int _points = this.getPoints(_last, _last_1);
-      int _plus = ((_get).intValue() + _points);
-      this.points.set(0, Integer.valueOf(_plus));
-      Integer _get_3 = this.points.get(1);
-      List<Boolean> _get_4 = this.responses.get(1);
-      Boolean _last_2 = IterableExtensions.<Boolean>last(_get_4);
-      List<Boolean> _get_5 = this.responses.get(0);
-      Boolean _last_3 = IterableExtensions.<Boolean>last(_get_5);
-      int _points_1 = this.getPoints(_last_2, _last_3);
-      int _plus_1 = ((_get_3).intValue() + _points_1);
-      _xblockexpression = this.points.set(1, Integer.valueOf(_plus_1));
-    }
-    return _xblockexpression;
+  public void updatePoints() {
+    Integer _get = this.points.get(0);
+    List<Boolean> _get_1 = this.responses.get(0);
+    Boolean _last = IterableExtensions.<Boolean>last(_get_1);
+    List<Boolean> _get_2 = this.responses.get(1);
+    Boolean _last_1 = IterableExtensions.<Boolean>last(_get_2);
+    int _points = this.getPoints(_last, _last_1);
+    int _plus = ((_get).intValue() + _points);
+    this.points.set(0, Integer.valueOf(_plus));
+    Integer _get_3 = this.points.get(1);
+    List<Boolean> _get_4 = this.responses.get(1);
+    Boolean _last_2 = IterableExtensions.<Boolean>last(_get_4);
+    List<Boolean> _get_5 = this.responses.get(0);
+    Boolean _last_3 = IterableExtensions.<Boolean>last(_get_5);
+    int _points_1 = this.getPoints(_last_2, _last_3);
+    int _plus_1 = ((_get_3).intValue() + _points_1);
+    this.points.set(1, Integer.valueOf(_plus_1));
   }
   
   public int getPoints(final Boolean ownReaction, final Boolean enemyReaction) {

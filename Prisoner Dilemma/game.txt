@@ -1,4 +1,4 @@
-NAME = Prisoner Dilemma
+NAME = Prisoners Dilemma
 VERSION = 1.0
 
 GAMEID = 2
@@ -16,16 +16,18 @@ logic {
 	LIBS += ../lib/java/lombok.jar
 	LIBS += ../lib/java/naga.jar
 	LIBS += ../lib/java/networking.jar
+	LIBS += ../lib/java/xtend.jar
+	LIBS += ../lib/java/xtend_base.jar
+	LIBS += ../lib/java/xtend_macros.jar
 	
 	SOURCES = src/main/java
-	FILES  = org/pixelgaffer/turnierserver/minesweeper/Cell.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/Grid.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/MinesweeperBuilderResponse.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/MinesweeperSolverResponse.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/logic/MinesweeperLogic.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/logic/MinesweeperObject.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/logic/MinesweeperRenderData.java
-	LOGICCLASS = org.pixelgaffer.turnierserver.minesweeper.logic.MinesweeperLogic
+	FILES  = org/pixelgaffer/turnierserver/pdilemma/PDGameState.java
+	FILES += org/pixelgaffer/turnierserver/pdilemma/PDNextRound.java
+	FILES += org/pixelgaffer/turnierserver/pdilemma/PDResponse.java
+	FILES += org/pixelgaffer/turnierserver/pdilemma/logic/PDNextRound.java
+	FILES += org/pixelgaffer/turnierserver/pdilemma/logic/PDAiObject.java
+	FILES += org/pixelgaffer/turnierserver/pdilemma/logic/PrisonersDilemmaLogic.java
+	LOGICCLASS = org.pixelgaffer.turnierserver.pdilemma.logic.PrisonersDilemmaLogic
 }
 
 java {
@@ -37,13 +39,15 @@ java {
 	LIBS += ../lib/java/lombok.jar
 	LIBS += ../lib/java/naga.jar
 	LIBS += ../lib/java/networking.jar
+	LIBS += ../lib/java/xtend.jar
+	LIBS += ../lib/java/xtend_base.jar
+	LIBS += ../lib/java/xtend_macros.jar
 	
 	SOURCES = src/main/java
-	FILES  = org/pixelgaffer/turnierserver/minesweeper/Cell.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/Grid.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/MinesweeperBuilderResponse.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/MinesweeperSolverResponse.java
-	FILES += org/pixelgaffer/turnierserver/minesweeper/ai/MinesweeperAi.java
+	FILES  = org/pixelgaffer/turnierserver/pdilemma/PDGameState.java
+	FILES += org/pixelgaffer/turnierserver/pdilemma/PDNextRound.java
+	FILES += org/pixelgaffer/turnierserver/pdilemma/PDResponse.java
+	FILES += org/pixelgaffer/turnierserver/pdilemma/ai/PrisonersDilemmaAi.java
 }
 
 python {
