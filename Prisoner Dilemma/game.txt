@@ -24,7 +24,7 @@ logic {
 	FILES  = org/pixelgaffer/turnierserver/pdilemma/PDGameState.java
 	FILES += org/pixelgaffer/turnierserver/pdilemma/PDNextRound.java
 	FILES += org/pixelgaffer/turnierserver/pdilemma/PDResponse.java
-	FILES += org/pixelgaffer/turnierserver/pdilemma/logic/PDNextRound.java
+	FILES += org/pixelgaffer/turnierserver/pdilemma/PDNextRound.java
 	FILES += org/pixelgaffer/turnierserver/pdilemma/logic/PDAiObject.java
 	FILES += org/pixelgaffer/turnierserver/pdilemma/logic/PrisonersDilemmaLogic.java
 	LOGICCLASS = org.pixelgaffer.turnierserver.pdilemma.logic.PrisonersDilemmaLogic
