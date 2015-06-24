@@ -18,7 +18,7 @@ logic {
 	LIBS += ../lib/java/networking.jar
 	LIBS += ../lib/java/xtend.jar
 	LIBS += ../lib/java/xtend_base.jar
-	LIBS += ../lib/java/xtend_macros.jar
+	LIBS += ../lib/java/xtend_macro.jar
 	
 	SOURCES = src/main/java
 	FILES  = org/pixelgaffer/turnierserver/pdilemma/PDGameState.java
