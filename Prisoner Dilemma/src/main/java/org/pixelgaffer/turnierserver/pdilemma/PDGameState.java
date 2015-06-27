@@ -37,6 +37,7 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
   public PDNextRound getChanges(final Ai ai) {
     PDNextRound _pDNextRound = new PDNextRound();
     final Procedure1<PDNextRound> _function = (PDNextRound it) -> {
+      Boolean _elvis = null;
       int _xifexpression = (int) 0;
       int _index = ai.getIndex();
       boolean _equals = (_index == 0);
@@ -47,7 +48,13 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
       }
       List<Boolean> _get = this.responses.get(_xifexpression);
       Boolean _last = IterableExtensions.<Boolean>last(_get);
-      it.enemyResponse = (_last).booleanValue();
+      if (_last != null) {
+        _elvis = _last;
+      } else {
+        _elvis = Boolean.valueOf(false);
+      }
+      it.enemyResponse = (_elvis).booleanValue();
+      Boolean _elvis_1 = null;
       int _xifexpression_1 = (int) 0;
       int _index_1 = ai.getIndex();
       boolean _equals_1 = (_index_1 == 0);
@@ -58,7 +65,12 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
       }
       List<Boolean> _get_1 = this.responses.get(_xifexpression_1);
       Boolean _last_1 = IterableExtensions.<Boolean>last(_get_1);
-      it.ownResponse = (_last_1).booleanValue();
+      if (_last_1 != null) {
+        _elvis_1 = _last_1;
+      } else {
+        _elvis_1 = Boolean.valueOf(false);
+      }
+      it.ownResponse = (_elvis_1).booleanValue();
     };
     return ObjectExtensions.<PDNextRound>operator_doubleArrow(_pDNextRound, _function);
   }

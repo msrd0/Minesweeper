@@ -23,8 +23,8 @@ class PDGameState implements GameState<PDNextRound, PDResponse> {
 	
 	override getChanges(Ai ai) {
 		new PDNextRound => [
-			enemyResponse = responses.get(if(ai.index == 0) 1 else 0).last
-			ownResponse = responses.get(if(ai.index == 0) 0 else 1).last
+			enemyResponse = responses.get(if(ai.index == 0) 1 else 0).last ?: false
+			ownResponse = responses.get(if(ai.index == 0) 0 else 1).last ?: false
 		]
 	}
 	
