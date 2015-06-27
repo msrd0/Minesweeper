@@ -39,5 +39,4 @@ class PrisonersDilemmaLogic extends TurnBasedGameLogic<PDAiObject, PDResponse> {
 			getUserObject(ai).millisLeft = maxTurns * 10
 		}
 	}
-	
 }
