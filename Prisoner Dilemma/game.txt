@@ -20,6 +20,9 @@ logic {
 	LIBS += ../lib/java/xtend_base.jar
 	LIBS += ../lib/java/xtend_macro.jar
 	
+	REQUIREDLIBS += xtend/2.8.3
+	REQUIREDLIBS += xtext/2.8.3
+	
 	SOURCES = src/main/java
 	FILES  = org/pixelgaffer/turnierserver/pdilemma/PDGameState.java
 	FILES += org/pixelgaffer/turnierserver/pdilemma/PDNextRound.java
