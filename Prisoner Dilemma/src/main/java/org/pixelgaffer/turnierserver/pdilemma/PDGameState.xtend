@@ -59,11 +59,11 @@ class PDGameState implements GameState<PDNextRound, PDResponse> {
 	}
 	
 	def void updatePoints() {
-		points.set(0, points.get(0) + getPoints(responses.get(0).last, responses.get(1).last))
-		points.set(1, points.get(1) + getPoints(responses.get(1).last, responses.get(0).last))
+		points.set(0, points.get(0) + getPoints(responses.get(0).last ?: false, responses.get(1).last ?: false))
+		points.set(1, points.get(1) + getPoints(responses.get(1).last ?: false, responses.get(0).last ?: false))
 	}
 	
-	def getPoints(Boolean ownReaction, Boolean enemyReaction) {
+	def getPoints(boolean ownReaction, boolean enemyReaction) {
 		if(enemyReaction && ownReaction) {
 			return 2
 		}

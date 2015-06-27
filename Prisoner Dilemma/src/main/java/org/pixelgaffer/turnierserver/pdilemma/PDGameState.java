@@ -101,41 +101,65 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
   
   public void updatePoints() {
     Integer _get = this.points.get(0);
+    Boolean _elvis = null;
     List<Boolean> _get_1 = this.responses.get(0);
     Boolean _last = IterableExtensions.<Boolean>last(_get_1);
+    if (_last != null) {
+      _elvis = _last;
+    } else {
+      _elvis = Boolean.valueOf(false);
+    }
+    Boolean _elvis_1 = null;
     List<Boolean> _get_2 = this.responses.get(1);
     Boolean _last_1 = IterableExtensions.<Boolean>last(_get_2);
-    int _points = this.getPoints(_last, _last_1);
+    if (_last_1 != null) {
+      _elvis_1 = _last_1;
+    } else {
+      _elvis_1 = Boolean.valueOf(false);
+    }
+    int _points = this.getPoints((_elvis).booleanValue(), (_elvis_1).booleanValue());
     int _plus = ((_get).intValue() + _points);
     this.points.set(0, Integer.valueOf(_plus));
     Integer _get_3 = this.points.get(1);
+    Boolean _elvis_2 = null;
     List<Boolean> _get_4 = this.responses.get(1);
     Boolean _last_2 = IterableExtensions.<Boolean>last(_get_4);
+    if (_last_2 != null) {
+      _elvis_2 = _last_2;
+    } else {
+      _elvis_2 = Boolean.valueOf(false);
+    }
+    Boolean _elvis_3 = null;
     List<Boolean> _get_5 = this.responses.get(0);
     Boolean _last_3 = IterableExtensions.<Boolean>last(_get_5);
-    int _points_1 = this.getPoints(_last_2, _last_3);
+    if (_last_3 != null) {
+      _elvis_3 = _last_3;
+    } else {
+      _elvis_3 = Boolean.valueOf(false);
+    }
+    int _points_1 = this.getPoints((_elvis_2).booleanValue(), (_elvis_3).booleanValue());
     int _plus_1 = ((_get_3).intValue() + _points_1);
     this.points.set(1, Integer.valueOf(_plus_1));
   }
   
-  public int getPoints(final Boolean ownReaction, final Boolean enemyReaction) {
+  public int getPoints(final boolean ownReaction, final boolean enemyReaction) {
     boolean _and = false;
-    if (!(enemyReaction).booleanValue()) {
+    if (!enemyReaction) {
       _and = false;
     } else {
-      _and = (ownReaction).booleanValue();
+      _and = ownReaction;
     }
     if (_and) {
       return 2;
     }
-    if (((!(ownReaction).booleanValue()) && (!(enemyReaction).booleanValue()))) {
+    if (((!ownReaction) && (!enemyReaction))) {
       return 4;
     }
     boolean _and_1 = false;
-    if (!(ownReaction).booleanValue()) {
+    if (!ownReaction) {
       _and_1 = false;
     } else {
-      _and_1 = (!(enemyReaction).booleanValue());
+      _and_1 = (!enemyReaction);
     }
     if (_and_1) {
       return 5;
