@@ -96,5 +96,8 @@ class GameWrapper(AIWrapper):
 
 	def del_output(self, d):
 		del d[list(d.keys())[0]]["output"]
+	
+	def add_output(self, d, o):
+		d[list(d.keys())[0]]["output"] += o
 
 

@@ -21,3 +21,6 @@ buildgame
 # dreck von nicos xtend
 *.xtendbin
 *._trace
+
+# vim
+*.swp
