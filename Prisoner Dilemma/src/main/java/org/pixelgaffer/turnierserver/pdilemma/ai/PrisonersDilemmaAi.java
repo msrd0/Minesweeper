@@ -35,8 +35,7 @@ public abstract class PrisonersDilemmaAi extends Ai<PDGameState, PDNextRound> {
       response.response = _respond;
       String _string = this.output.toString();
       response.output = _string;
-      StringBuilder _stringBuilder = new StringBuilder();
-      this.output = _stringBuilder;
+      this.clear(this.output);
       _xblockexpression = response;
     }
     return _xblockexpression;

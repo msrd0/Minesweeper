@@ -71,7 +71,7 @@ public class PrisonersDilemmaLogic extends TurnBasedGameLogic<PDAiObject, PDResp
         } else {
           _elvis_1 = Boolean.valueOf(false);
         }
-        Pair<String, Boolean> _mappedTo_3 = Pair.<String, Boolean>of(firstId, _elvis_1);
+        Pair<String, Boolean> _mappedTo_3 = Pair.<String, Boolean>of(secondId, _elvis_1);
         LinkedHashMap<String, Boolean> _newLinkedHashMap_1 = CollectionLiterals.<String, Boolean>newLinkedHashMap(_mappedTo_2, _mappedTo_3);
         it.action = _newLinkedHashMap_1;
         Integer _elvis_2 = null;

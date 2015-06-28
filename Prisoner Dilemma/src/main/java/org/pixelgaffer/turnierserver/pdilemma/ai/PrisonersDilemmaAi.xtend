@@ -25,7 +25,7 @@ abstract class PrisonersDilemmaAi extends Ai<PDGameState, PDNextRound> {
 		var response = new PDResponse
 		response.response = respond()
 		response.output = output.toString
-		output = new StringBuilder
+		output.clear
 		response
 	}
 	

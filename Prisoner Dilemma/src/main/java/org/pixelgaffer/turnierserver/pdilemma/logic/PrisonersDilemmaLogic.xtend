@@ -21,7 +21,7 @@ class PrisonersDilemmaLogic extends TurnBasedGameLogic<PDAiObject, PDResponse> {
 			var secondId = game.ais.get(1).id
 			var pdgs = gamestate as PDGameState
 			output = newLinkedHashMap(firstId -> pdgs.lastResponse.get(0).output, secondId -> pdgs.lastResponse.get(1).output)
-			action = newLinkedHashMap(firstId -> (pdgs.ownChanges.last ?: false), firstId -> (pdgs.enemyChanges.last ?: false))
+			action = newLinkedHashMap(firstId -> (pdgs.ownChanges.last ?: false), secondId -> (pdgs.enemyChanges.last ?: false))
 			points = newLinkedHashMap(firstId -> (pdgs.ownPoints ?: 0), secondId -> (pdgs.enemyPoints ?: 0))
 		]
 	}
