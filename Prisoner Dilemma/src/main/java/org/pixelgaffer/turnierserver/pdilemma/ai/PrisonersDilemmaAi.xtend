@@ -24,6 +24,8 @@ abstract class PrisonersDilemmaAi extends Ai<PDGameState, PDNextRound> {
 	override protected update(PDGameState state) {
 		var response = new PDResponse
 		response.response = respond()
+		response.output = output.toString
+		output = new StringBuilder
 		response
 	}
 	
