@@ -20,6 +20,9 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
   
   private List<Integer> points = new ArrayList<Integer>();
   
+  @Accessors({ AccessorType.PUBLIC_GETTER, AccessorType.PRIVATE_SETTER })
+  private ArrayList<PDResponse> lastResponse = new ArrayList<PDResponse>();
+  
   public PDGameState() {
     ArrayList<Boolean> _arrayList = new ArrayList<Boolean>();
     this.responses.add(_arrayList);
@@ -27,6 +30,14 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
     this.responses.add(_arrayList_1);
     this.points.add(Integer.valueOf(0));
     this.points.add(Integer.valueOf(0));
+    PDResponse _pDResponse = new PDResponse();
+    final Procedure1<PDResponse> _function = (PDResponse it) -> {
+      it.output = "Diese KI hat in der ersten Runde schon verloren";
+      it.response = false;
+    };
+    PDResponse noResponse = ObjectExtensions.<PDResponse>operator_doubleArrow(_pDResponse, _function);
+    this.lastResponse.add(noResponse);
+    this.lastResponse.add(noResponse);
   }
   
   @Override
@@ -80,6 +91,8 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
     int _index = ai.getIndex();
     List<Boolean> _get = this.responses.get(_index);
     _get.add(Boolean.valueOf(response.response));
+    int _index_1 = ai.getIndex();
+    this.lastResponse.set(_index_1, response);
   }
   
   @Override
@@ -186,5 +199,14 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
   
   private void setResponses(final List<List<Boolean>> responses) {
     this.responses = responses;
+  }
+  
+  @Pure
+  public ArrayList<PDResponse> getLastResponse() {
+    return this.lastResponse;
+  }
+  
+  private void setLastResponse(final ArrayList<PDResponse> lastResponse) {
+    this.lastResponse = lastResponse;
   }
 }

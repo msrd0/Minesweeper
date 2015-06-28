@@ -16,7 +16,14 @@ class PrisonersDilemmaLogic extends TurnBasedGameLogic<PDAiObject, PDResponse> {
 		(gamestate as PDGameState).updatePoints
 		progress = playedRounds * 1.0 / maxTurns
 		display = '''«playedRounds» von «maxTurns» Runden gespielt'''
-		newLinkedHashMap(game.ais.get(0).id -> (gamestate as PDGameState).ownPoints, game.ais.get(1).id -> (gamestate as PDGameState).enemyPoints)
+		new PDRenderData => [
+			var firstId = game.ais.get(0).id
+			var secondId = game.ais.get(1).id
+			var pdgs = gamestate as PDGameState
+			output = newLinkedHashMap(firstId -> pdgs.lastResponse.get(0).output, secondId -> pdgs.lastResponse.get(1).output)
+			action = newLinkedHashMap(firstId -> (pdgs.ownChanges.last ?: false), firstId -> (pdgs.enemyChanges.last ?: false))
+			points = newLinkedHashMap(firstId -> (pdgs.ownPoints ?: 0), secondId -> (pdgs.enemyPoints ?: 0))
+		]
 	}
 	
 	override protected createGameState() {

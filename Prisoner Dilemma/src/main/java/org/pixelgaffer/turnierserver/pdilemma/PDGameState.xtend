@@ -12,11 +12,20 @@ class PDGameState implements GameState<PDNextRound, PDResponse> {
 	private List<List<Boolean>> responses = new ArrayList<List<Boolean>>
 	private List<Integer> points = new ArrayList<Integer>
 	
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER)
+	private ArrayList<PDResponse> lastResponse = new ArrayList<PDResponse>
+	
 	new() {
 		responses += new ArrayList<Boolean>
 		responses += new ArrayList<Boolean>
 		points += 0
 		points += 0
+		var noResponse = new PDResponse => [
+			output = "Diese KI hat in der ersten Runde schon verloren"
+			response = false
+		]
+		lastResponse += noResponse
+		lastResponse += noResponse
 	}
 	
 	override clearChanges(Ai ai) {}
@@ -30,6 +39,7 @@ class PDGameState implements GameState<PDNextRound, PDResponse> {
 	
 	override applyChanges(PDResponse response, Ai ai) {
 		responses.get(ai.index) += response.response
+		lastResponse.set(ai.index, response)
 	}
 	
 	override applyChanges(PDNextRound changes) {
