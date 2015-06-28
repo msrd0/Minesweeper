@@ -20,6 +20,8 @@ class PrisonersDilemmaLogic extends TurnBasedGameLogic<PDAiObject, PDResponse> {
 			var firstId = game.ais.get(0).id
 			var secondId = game.ais.get(1).id
 			var pdgs = gamestate as PDGameState
+			println(firstId)
+			println(secondId)
 			output = newLinkedHashMap(firstId -> pdgs.lastResponse.get(0).output, secondId -> pdgs.lastResponse.get(1).output)
 			action = newLinkedHashMap(firstId -> (pdgs.ownChanges.last ?: false), secondId -> (pdgs.enemyChanges.last ?: false))
 			points = newLinkedHashMap(firstId -> (pdgs.ownPoints ?: 0), secondId -> (pdgs.enemyPoints ?: 0))
@@ -43,7 +45,7 @@ class PrisonersDilemmaLogic extends TurnBasedGameLogic<PDAiObject, PDResponse> {
 	override protected setup() {
 		maxTurns = 200
 		for(ai : game.ais) {
-			getUserObject(ai).millisLeft = maxTurns * 10
+			getUserObject(ai).millisLeft = maxTurns * 100
 		}
 	}
 }

@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
@@ -46,6 +47,8 @@ public class PrisonersDilemmaLogic extends TurnBasedGameLogic<PDAiObject, PDResp
         Ai _get_1 = _ais_1.get(1);
         String secondId = _get_1.getId();
         PDGameState pdgs = ((PDGameState) this.gamestate);
+        InputOutput.<String>println(firstId);
+        InputOutput.<String>println(secondId);
         ArrayList<PDResponse> _lastResponse = pdgs.getLastResponse();
         PDResponse _get_2 = _lastResponse.get(0);
         Pair<String, String> _mappedTo = Pair.<String, String>of(firstId, _get_2.output);
@@ -125,7 +128,7 @@ public class PrisonersDilemmaLogic extends TurnBasedGameLogic<PDAiObject, PDResp
     List<? extends Ai> _ais = this.game.getAis();
     for (final Ai ai : _ais) {
       PDAiObject _userObject = this.getUserObject(ai);
-      _userObject.millisLeft = (this.maxTurns * 10);
+      _userObject.millisLeft = (this.maxTurns * 100);
     }
   }
 }
