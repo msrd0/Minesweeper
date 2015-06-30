@@ -35,13 +35,9 @@ logic {
 
 java {
 	LIBS += ../lib/java/ailibrary.jar
-	LIBS += ../lib/java/ftp4j.jar
-	LIBS += ../lib/java/gamelogic.jar
 	LIBS += ../lib/java/gson.jar
-	LIBS += ../lib/java/guava.jar
 	LIBS += ../lib/java/lombok.jar
-	LIBS += ../lib/java/naga.jar
-	LIBS += ../lib/java/networking.jar
+	LIBS += ../lib/java/utils.jar
 	LIBS += ../lib/java/xtend.jar
 	LIBS += ../lib/java/xtend_base.jar
 	LIBS += ../lib/java/xtend_macro.jar
