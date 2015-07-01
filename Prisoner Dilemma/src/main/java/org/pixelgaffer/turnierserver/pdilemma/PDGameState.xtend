@@ -75,14 +75,14 @@ class PDGameState implements GameState<PDNextRound, PDResponse> {
 	
 	def getPoints(boolean ownReaction, boolean enemyReaction) {
 		if(enemyReaction && ownReaction) {
-			return 2
+			return -1
 		}
 		if(!ownReaction && !enemyReaction) {
-			return 4
+			return 1
 		}
 		if(ownReaction && !enemyReaction) {
-			return 5
+			return 2
 		}
-		return 0
+		return -3
 	}
 }

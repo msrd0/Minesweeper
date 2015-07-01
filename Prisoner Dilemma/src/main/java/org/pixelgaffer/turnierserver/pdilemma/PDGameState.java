@@ -175,10 +175,10 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
       _and = ownReaction;
     }
     if (_and) {
-      return 2;
+      return (-1);
     }
     if (((!ownReaction) && (!enemyReaction))) {
-      return 4;
+      return 1;
     }
     boolean _and_1 = false;
     if (!ownReaction) {
@@ -187,9 +187,9 @@ public class PDGameState implements GameState<PDNextRound, PDResponse> {
       _and_1 = (!enemyReaction);
     }
     if (_and_1) {
-      return 5;
+      return 2;
     }
-    return 0;
+    return (-3);
   }
   
   @Pure
