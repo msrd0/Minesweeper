@@ -85,7 +85,7 @@ public class Cell {
 	Cell[][] fromAi = new Cell[Cell.FIELD_SIZE][Cell.FIELD_SIZE];
 	for (int i = 0; i < Cell.FIELD_SIZE; i++) {
 	    for (int j = 0; j < Cell.FIELD_SIZE; j++) {
-		if(i > cells.length || j > cells[0].length) {
+		if(i >= cells.length || j >= cells[0].length) {
 		    fromAi[i][j] = new CellFromAi(Type.COVERED).toCell();
 		    continue;
 		}
