@@ -12,50 +12,51 @@ import org.pixelgaffer.turnierserver.minesweeper.MinesweeperSolverResponse;
 import com.google.gson.reflect.TypeToken;
 
 public class MinesweeperLogic extends AllBuilderAllSolverLogic<MinesweeperObject, Grid, MinesweeperBuilderResponse, MinesweeperSolverResponse> {
-	
-	public MinesweeperLogic() {
-		super(new TypeToken<BuilderSolverResponse<MinesweeperBuilderResponse, MinesweeperSolverResponse>>() {});
-	}
-	
-	@Override
-	public void failed(boolean building, Ai ai) {
-		if(building) {
-			getUserObject(ai).loose();
-			return;
-		}
-		getUserObject(ai).score -= getUserObject(ai).building.getMoves();
- 	}
 
-	@Override
-	public void succeeded(boolean building, Ai ai) {
-		if(!building) {
-			getUserObject(ai).score += Cell.FIELD_SIZE * Cell.FIELD_SIZE;
-			getUserObject(ai).score -= getUserObject(ai).building.getMoves();
-		}
-	}
+    public MinesweeperLogic() {
+	super(new TypeToken<BuilderSolverResponse<MinesweeperBuilderResponse, MinesweeperSolverResponse>>() {
+	});
+    }
 
-	@Override
-	protected void gameFinished() {
-		GameLogic.logger.finest("Das Spiel wurde beendet.");
+    @Override
+    public void failed(boolean building, Ai ai) {
+	if (building) {
+	    getUserObject(ai).loose();
+	    return;
 	}
+	getUserObject(ai).score -= getUserObject(ai).building.getMoves();
+    }
 
-	@Override
-	protected void setup() {
-		for(Ai ai : game.getAis()) {
-			getUserObject(ai).millisLeft = 10000;
-		}
+    @Override
+    public void succeeded(boolean building, Ai ai) {
+	if (!building) {
+	    getUserObject(ai).score += Cell.FIELD_SIZE * Cell.FIELD_SIZE;
+	    getUserObject(ai).score -= getUserObject(ai).building.getMoves();
 	}
+    }
 
-	@Override
-	protected MinesweeperObject createUserObject(Ai ai) {
-		return new MinesweeperObject();
-	}
+    @Override
+    protected void gameFinished() {
+	GameLogic.logger.finest("Das Spiel wurde beendet.");
+    }
 
-	@Override
-	public Grid createGameState(Ai ai) {
-		Grid grid = new Grid();
-		grid.setAi(ai);
-		return grid;
+    @Override
+    protected void setup() {
+	for (Ai ai : game.getAis()) {
+	    getUserObject(ai).millisLeft = 10000;
 	}
+    }
+
+    @Override
+    protected MinesweeperObject createUserObject(Ai ai) {
+	return new MinesweeperObject();
+    }
+
+    @Override
+    public Grid createGameState(Ai ai) {
+	Grid grid = new Grid();
+	grid.setAi(ai);
+	return grid;
+    }
 
 }
