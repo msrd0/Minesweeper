@@ -45,6 +45,7 @@ public class MinesweeperLogic extends AllBuilderAllSolverLogic<MinesweeperObject
 	for (Ai ai : game.getAis()) {
 	    getUserObject(ai).millisLeft = 10000;
 	}
+	maxTurns = 10;
     }
 
     @Override
