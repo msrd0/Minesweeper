@@ -3,6 +3,7 @@ package org.pixelgaffer.turnierserver.minesweeper.logic;
 import org.pixelgaffer.turnierserver.gamelogic.AllBuilderAllSolverLogic;
 import org.pixelgaffer.turnierserver.gamelogic.GameLogic;
 import org.pixelgaffer.turnierserver.gamelogic.interfaces.Ai;
+import org.pixelgaffer.turnierserver.gamelogic.interfaces.Game;
 import org.pixelgaffer.turnierserver.gamelogic.messages.BuilderSolverResponse;
 import org.pixelgaffer.turnierserver.minesweeper.Cell;
 import org.pixelgaffer.turnierserver.minesweeper.Grid;
