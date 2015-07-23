@@ -57,7 +57,8 @@ class State:
 class GameWrapper(AIWrapper):
 	state = None
 
-	def update(self, state: State):
+	def update(self, updates):
+		state = self.getState(updates)
 		if state.isBuilding:
 			field = self.ai.generateField()
 			response = {
@@ -96,7 +97,7 @@ class GameWrapper(AIWrapper):
 
 	def del_output(self, d):
 		del d[list(d.keys())[0]]["output"]
-	
+
 	def add_output(self, d, o):
 		d[list(d.keys())[0]]["output"] += o
 
