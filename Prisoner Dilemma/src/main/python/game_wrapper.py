@@ -5,7 +5,13 @@ class Actions:
 	BETRAY = False
 
 class GameWrapper(AIWrapper):
-	def update(self, state):
+	def update(self, d):
+		if "enemyResponse" in d and "ownResponse" in d:
+			if hasattr(self.ai, "process"):
+				self.ai.process(d["ownResponse"], d["enemyResponse"])
+			else:
+				print("KI verarbeitet Daten aufgrund fehlender 'process' Methode nicht.")
+
 		cooperate = not not self.ai.step()
 		response = {
 			"output": self.output.read(),
@@ -13,17 +19,9 @@ class GameWrapper(AIWrapper):
 		}
 		return response
 
-	def getState(self, d):
-		if "enemyResponse" in d and "ownResponse" in d:
-			if hasattr(self.ai, "process"):
-				self.ai.process(d["ownResponse"], d["enemyResponse"])
-			else:
-				print("KI verarbeitet Daten aufgrund fehlender 'process' Methode nicht.")
-		return None
-
 	def del_output(self, d):
 		d.pop("output")
-	
+
 	def add_output(self, d, o):
 		d["output"] += o
 
