@@ -3,7 +3,6 @@ package org.pixelgaffer.turnierserver.minesweeper.logic;
 import org.pixelgaffer.turnierserver.gamelogic.AllBuilderAllSolverLogic;
 import org.pixelgaffer.turnierserver.gamelogic.GameLogic;
 import org.pixelgaffer.turnierserver.gamelogic.interfaces.Ai;
-import org.pixelgaffer.turnierserver.gamelogic.interfaces.Game;
 import org.pixelgaffer.turnierserver.gamelogic.messages.BuilderSolverResponse;
 import org.pixelgaffer.turnierserver.minesweeper.Cell;
 import org.pixelgaffer.turnierserver.minesweeper.Grid;
@@ -13,52 +12,52 @@ import org.pixelgaffer.turnierserver.minesweeper.MinesweeperSolverResponse;
 import com.google.gson.reflect.TypeToken;
 
 public class MinesweeperLogic extends AllBuilderAllSolverLogic<MinesweeperObject, Grid, MinesweeperBuilderResponse, MinesweeperSolverResponse> {
-
-    public MinesweeperLogic() {
-	super(new TypeToken<BuilderSolverResponse<MinesweeperBuilderResponse, MinesweeperSolverResponse>>() {
-	});
-    }
-
-    @Override
-    public void failed(boolean building, Ai ai) {
-	if (building) {
-	    getUserObject(ai).loose();
-	    return;
+	
+	public MinesweeperLogic() {
+		super(new TypeToken<BuilderSolverResponse<MinesweeperBuilderResponse, MinesweeperSolverResponse>>() {
+		});
 	}
-	getUserObject(ai).score -= getUserObject(ai).building.getMoves();
-    }
-
-    @Override
-    public void succeeded(boolean building, Ai ai) {
-	if (!building) {
-	    getUserObject(ai).score += Cell.FIELD_SIZE * Cell.FIELD_SIZE;
-	    getUserObject(ai).score -= getUserObject(ai).building.getMoves();
+	
+	@Override
+	public void failed(boolean building, Ai ai) {
+		if (building) {
+			getUserObject(ai).loose("Die KI hat beim Bauen des Spielfeldes einen Fehler gemacht");
+			return;
+		}
+		getUserObject(ai).score -= getUserObject(ai).building.getMoves();
 	}
-    }
-
-    @Override
-    protected void gameFinished() {
-	GameLogic.logger.finest("Das Spiel wurde beendet.");
-    }
-
-    @Override
-    protected void setup() {
-	for (Ai ai : game.getAis()) {
-	    getUserObject(ai).millisLeft = 10000;
+	
+	@Override
+	public void succeeded(boolean building, Ai ai) {
+		if (!building) {
+			getUserObject(ai).score += Cell.FIELD_SIZE * Cell.FIELD_SIZE;
+			getUserObject(ai).score -= getUserObject(ai).building.getMoves();
+		}
 	}
-	maxTurns = 10;
-    }
-
-    @Override
-    protected MinesweeperObject createUserObject(Ai ai) {
-	return new MinesweeperObject();
-    }
-
-    @Override
-    public Grid createGameState(Ai ai) {
-	Grid grid = new Grid();
-	grid.setAi(ai);
-	return grid;
-    }
-
+	
+	@Override
+	protected void gameFinished() {
+		GameLogic.logger.info("Das Spiel wurde beendet.");
+	}
+	
+	@Override
+	protected void setup() {
+		for (Ai ai : game.getAis()) {
+			getUserObject(ai).millisLeft = 10000;
+		}
+		maxTurns = 10;
+	}
+	
+	@Override
+	protected MinesweeperObject createUserObject(Ai ai) {
+		return new MinesweeperObject();
+	}
+	
+	@Override
+	public Grid createGameState(Ai ai) {
+		Grid grid = new Grid();
+		grid.setAi(ai);
+		return grid;
+	}
+	
 }
